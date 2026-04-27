@@ -1,25 +1,34 @@
-import { Button } from "@/components/ui/button";
-import { Loader2 } from "lucide-react";
-import { Streamdown } from 'streamdown';
-
-/**
- * All content in this page are only for example, replace with your own feature implementation
- * When building pages, remember your instructions in Frontend Best Practices, Design Guide and Common Pitfalls
+/*
+ * Design: "Warm Authority" — Editorial Corporativo com Alma
+ * Home Page: Full landing page for GluoTech Partnership Program
+ * Sections: Hero → Program → Benefits → How It Works → Simulation → Launch Offer → FAQ → Form → Footer
  */
-export default function Home() {
-  // If theme is switchable in App.tsx, we can implement theme toggling like this:
-  // const { theme, toggleTheme } = useTheme();
+import Navbar from "@/components/Navbar";
+import HeroSection from "@/components/HeroSection";
+import ProgramSection from "@/components/ProgramSection";
+import BenefitsSection from "@/components/BenefitsSection";
+import HowItWorksSection from "@/components/HowItWorksSection";
+import SimulationSection from "@/components/SimulationSection";
+import LaunchOfferSection from "@/components/LaunchOfferSection";
+import FAQSection from "@/components/FAQSection";
+import FormSection from "@/components/FormSection";
+import Footer from "@/components/Footer";
 
+export default function Home() {
   return (
     <div className="min-h-screen flex flex-col">
+      <Navbar />
       <main>
-        {/* Example: lucide-react for icons */}
-        <Loader2 className="animate-spin" />
-        Example Page
-        {/* Example: Streamdown for markdown rendering */}
-        <Streamdown>Any **markdown** content</Streamdown>
-        <Button variant="default">Example Button</Button>
+        <HeroSection />
+        <ProgramSection />
+        <BenefitsSection />
+        <HowItWorksSection />
+        <SimulationSection />
+        <LaunchOfferSection />
+        <FAQSection />
+        <FormSection />
       </main>
+      <Footer />
     </div>
   );
 }
