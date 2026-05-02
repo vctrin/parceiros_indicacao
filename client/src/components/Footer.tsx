@@ -9,7 +9,7 @@ export default function Footer() {
   return (
     <footer className="bg-[#0F0F0F] py-14">
       <div className="container">
-        <div className="grid md:grid-cols-3 gap-10 md:gap-8">
+        <div className="grid md:grid-cols-2 gap-10 md:gap-8">
           {/* Brand */}
           <div>
             <span className="text-2xl font-extrabold tracking-tight text-white font-sans">
@@ -21,17 +21,6 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Site - Centro */}
-          <div className="flex flex-col items-center justify-center">
-            <a
-              href="https://www.gluocrm.com.br"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white/50 hover:text-[#E8491D] transition-colors text-sm font-sans"
-            >
-              www.gluocrm.com.br
-            </a>
-          </div>
 
           {/* Contact - Alinhado à direita */}
           <div className="md:text-right">
@@ -71,6 +60,14 @@ export default function Footer() {
           <p className="text-white/30 text-xs font-sans">
             &copy; {new Date().getFullYear()} Gluo Tecnologia e Sistemas Ltda.
           </p>
+          <a
+            href="https://www.gluocrm.com.br"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-white/30 hover:text-[#E8491D] transition-colors text-xs font-sans"
+          >
+            www.gluocrm.com.br
+          </a>
           <p className="text-white/20 text-xs font-sans">
             Programa de Parceria — Versão 1.0 — Abril 2026
           </p>
