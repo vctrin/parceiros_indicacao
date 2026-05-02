@@ -21,22 +21,34 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Contact */}
-          <div>
+          {/* Site - Centro */}
+          <div className="flex flex-col items-center justify-center">
+            <a
+              href="https://www.gluocrm.com.br"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white/50 hover:text-[#E8491D] transition-colors text-sm font-sans"
+            >
+              www.gluocrm.com.br
+            </a>
+          </div>
+
+          {/* Contact - Alinhado à direita */}
+          <div className="md:text-right">
             <h4 className="text-white font-semibold text-sm uppercase tracking-wide mb-4 font-sans">
               Equipe de Parcerias
             </h4>
             <div className="space-y-3">
               <a
-                href="mailto:valmir@gluotech.com"
-                className="flex items-center gap-3 text-white/50 hover:text-[#E8491D] transition-colors text-sm font-sans"
+                href="mailto:parcerias@gluotech.com"
+                className="flex items-center md:justify-end gap-3 text-white/50 hover:text-[#E8491D] transition-colors text-sm font-sans"
               >
                 <Mail className="h-4 w-4 shrink-0" />
-                valmir@gluotech.com
+                parcerias@gluotech.com
               </a>
               <a
                 href="tel:+554132039951"
-                className="flex items-center gap-3 text-white/50 hover:text-[#E8491D] transition-colors text-sm font-sans"
+                className="flex items-center md:justify-end gap-3 text-white/50 hover:text-[#E8491D] transition-colors text-sm font-sans"
               >
                 <Phone className="h-4 w-4 shrink-0" />
                 (41) 3203-9951
@@ -45,35 +57,10 @@ export default function Footer() {
                 href="https://wa.me/5541998977507"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 text-white/50 hover:text-[#E8491D] transition-colors text-sm font-sans"
+                className="flex items-center md:justify-end gap-3 text-white/50 hover:text-[#E8491D] transition-colors text-sm font-sans"
               >
                 <MessageCircle className="h-4 w-4 shrink-0" />
                 (41) 99897-7507
-              </a>
-            </div>
-          </div>
-
-          {/* Links */}
-          <div>
-            <h4 className="text-white font-semibold text-sm uppercase tracking-wide mb-4 font-sans">
-              Links
-            </h4>
-            <div className="space-y-3">
-              <a
-                href="https://gluotech.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block text-white/50 hover:text-[#E8491D] transition-colors text-sm font-sans"
-              >
-                Site GluoTech
-              </a>
-              <a
-                href="https://parceiros.gluotech.com.br"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block text-white/50 hover:text-[#E8491D] transition-colors text-sm font-sans"
-              >
-                Portal do Parceiro
               </a>
             </div>
           </div>
@@ -82,7 +69,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-white/30 text-xs font-sans">
-            &copy; {new Date().getFullYear()} GluoTech. Todos os direitos reservados.
+            &copy; {new Date().getFullYear()} Gluo Tecnologia e Sistemas Ltda.
           </p>
           <p className="text-white/20 text-xs font-sans">
             Programa de Parceria — Versão 1.0 — Abril 2026
