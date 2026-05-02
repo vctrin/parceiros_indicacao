@@ -53,9 +53,6 @@ export default function Navbar() {
           <button onClick={() => scrollTo("como-funciona")} className={`text-[15px] font-medium hover:text-[#E8491D] transition-colors ${scrolled ? "text-[#1A1A1A]/70" : "text-white/80"}`}>
             Como Funciona
           </button>
-          <button onClick={() => scrollTo("simulacao")} className={`text-[15px] font-medium hover:text-[#E8491D] transition-colors ${scrolled ? "text-[#1A1A1A]/70" : "text-white/80"}`}>
-            Simulação
-          </button>
           <button onClick={() => scrollTo("faq")} className={`text-[15px] font-medium hover:text-[#E8491D] transition-colors ${scrolled ? "text-[#1A1A1A]/70" : "text-white/80"}`}>
             FAQ
           </button>
@@ -85,7 +82,6 @@ export default function Navbar() {
               { id: "programa", label: "O Programa" },
               { id: "beneficios", label: "Benefícios" },
               { id: "como-funciona", label: "Como Funciona" },
-              { id: "simulacao", label: "Simulação" },
               { id: "faq", label: "FAQ" },
             ].map((item) => (
               <button

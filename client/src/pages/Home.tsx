@@ -8,7 +8,6 @@ import HeroSection from "@/components/HeroSection";
 import ProgramSection from "@/components/ProgramSection";
 import BenefitsSection from "@/components/BenefitsSection";
 import HowItWorksSection from "@/components/HowItWorksSection";
-import SimulationSection from "@/components/SimulationSection";
 import LaunchOfferSection from "@/components/LaunchOfferSection";
 import FAQSection from "@/components/FAQSection";
 import FormSection from "@/components/FormSection";
@@ -23,7 +22,6 @@ export default function Home() {
         <ProgramSection />
         <BenefitsSection />
         <HowItWorksSection />
-        <SimulationSection />
         <LaunchOfferSection />
         <FAQSection />
         <FormSection />
