@@ -32,7 +32,12 @@ export default function Navbar() {
     >
       <div className="container flex items-center justify-between h-16 md:h-20">
         {/* Logo */}
-        <button onClick={() => scrollTo("hero")} className="flex items-center gap-1 group">
+        <button onClick={() => scrollTo("hero")} className="flex items-center gap-2 group">
+          <img 
+            src="https://d2xsxph8kpxj0f.cloudfront.net/310419663028752377/fro2PgixhPifRKhNGEgZFN/favicon-5qQQb8XYPVr4wbrdfvwudb.webp" 
+            alt="GluoTech"
+            className="w-8 h-8 md:w-10 md:h-10 transition-transform group-hover:scale-110"
+          />
           <span className={`text-2xl md:text-[28px] font-extrabold tracking-tight font-sans transition-colors duration-300 ${
             scrolled ? "text-[#1A1A1A]" : "text-white"
           }`}>
