@@ -6,6 +6,7 @@ services:
     environment:
       NODE_ENV: production
       PORT: 3000
+      PARTNER_WEBHOOK_URL: ${PARTNER_WEBHOOK_URL}
     networks:
       - network_public
     deploy:

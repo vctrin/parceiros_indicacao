@@ -55,7 +55,7 @@ export default function HeroSection() {
             transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
             className="text-lg sm:text-xl text-white/80 leading-relaxed mb-10 font-sans font-light max-w-xl"
           >
-            Torne-se um Indicador de Negócios da GluoTech e receba até{" "}
+            Torne-se um Indicador de Negócios da Gluotech e receba até{" "}
             <strong className="text-white font-semibold">15% de comissão recorrente</strong>{" "}
             sobre cada cliente indicado — sem investimento inicial e sem precisar vender.
           </motion.p>

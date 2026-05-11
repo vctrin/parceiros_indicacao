@@ -56,6 +56,7 @@ docker build \
 No `docker-stack.yml`, ajuste:
 
 - `image`: imagem publicada no registry. Por padrao usa `ghcr.io/vctrin/parceiros-indicacao:${IMAGE_TAG:-latest}`.
+- `PARTNER_WEBHOOK_URL`: URL privada do webhook que recebe os leads do formulario. Configure como variavel da stack no Portainer.
 - `Host(...)`: dominio da aplicacao, atualmente `parcerias.gluotech.com`.
 - `network_public`: rede externa usada pelo Traefik.
 - `tls.certresolver`: nome do resolver configurado no seu Traefik.

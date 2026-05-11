@@ -5,12 +5,10 @@
  * Colors: Petrol dark bg, white form card, orange CTA
  */
 import { motion, useInView } from "motion/react";
-import { useRef, useState, useCallback, useEffect } from "react";
+import { useRef, useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Send, CheckCircle, AlertCircle, Loader2, Shield } from "lucide-react";
 import { toast } from "sonner";
-
-const WEBHOOK_URL = "https://workflows.gluotech.com/webhook/7f0a9086-9653-451b-98bb-049456fb03a0";
 
 interface FormData {
   nome: string;
@@ -60,12 +58,6 @@ export default function FormSection() {
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [lastSubmitTime, setLastSubmitTime] = useState(0);
-  const [formToken, setFormToken] = useState("");
-
-  // Generate a simple form token on mount
-  useEffect(() => {
-    setFormToken(crypto.randomUUID?.() || Math.random().toString(36).substring(2));
-  }, []);
 
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -124,12 +116,10 @@ export default function FormSection() {
         celular: sanitize(form.celular),
         empresa: sanitize(form.empresa),
         observacoes: sanitize(form.observacoes),
-        timestamp: new Date().toISOString(),
-        source: "landing-page-parceria",
-        token: formToken,
+        website: honeypot,
       };
 
-      const response = await fetch(WEBHOOK_URL, {
+      const response = await fetch("/api/partner-interest", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -137,7 +127,7 @@ export default function FormSection() {
         body: JSON.stringify(sanitizedData),
       });
 
-      if (response.ok || response.status === 200) {
+      if (response.ok) {
         setSubmitted(true);
         setLastSubmitTime(now);
         toast.success("Registro enviado com sucesso!");
