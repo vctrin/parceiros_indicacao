@@ -16,7 +16,7 @@ const faqs = [
   {
     question: "O Indicador de Negócios precisa participar de reuniões com o cliente?",
     answer:
-      "Não. Todo o processo comercial (apresentação, negociação e fechamento) é conduzido pela equipe de vendas da GluoTech. O Indicador precisa apenas registrar o lead qualificado na plataforma.",
+      "Não. Todo o processo comercial (apresentação, negociação e fechamento) é conduzido pela equipe de vendas da Gluotech. O Indicador precisa apenas registrar o lead qualificado na plataforma.",
   },
   {
     question: "Posso começar como Indicador e depois me tornar Revendedor?",

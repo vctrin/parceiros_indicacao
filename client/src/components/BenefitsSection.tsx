@@ -31,7 +31,7 @@ const benefits = [
   },
   {
     icon: Shield,
-    title: "Processo 100% pela GluoTech",
+    title: "Processo 100% pela Gluotech",
     description:
       "Todo o processo comercial — apresentação, negociação e fechamento — é conduzido pela nossa equipe de vendas. Você foca apenas na indicação.",
     highlight: "Você só indica",
@@ -40,14 +40,14 @@ const benefits = [
     icon: TrendingUp,
     title: "Bônus sobre Implantação",
     description:
-      "Além da comissão recorrente, receba um bônus fixo de 10% sobre a taxa de implantação cobrada pela GluoTech em cada cliente indicado.",
+      "Além da comissão recorrente, receba um bônus fixo de 10% sobre a taxa de implantação cobrada pela Gluotech em cada cliente indicado.",
     highlight: "10% de bônus",
   },
   {
     icon: Headphones,
     title: "Suporte Dedicado",
     description:
-      "Conte com suporte técnico e comercial dedicado para tirar dúvidas e apoiar suas indicações. Implantação e qualidade são garantidas pela GluoTech.",
+      "Conte com suporte técnico e comercial dedicado para tirar dúvidas e apoiar suas indicações. Implantação e qualidade são garantidas pela Gluotech.",
     highlight: "Suporte completo",
   },
   {

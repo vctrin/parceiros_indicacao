@@ -172,7 +172,7 @@ export default function FormSection() {
             </h2>
             <p className="text-lg text-white/60 mt-5 font-sans leading-relaxed">
               Preencha o formulário abaixo para iniciar sua jornada como parceiro
-              Indicador de Negócios da GluoTech. Nossa equipe entrará em contato em
+              Indicador de Negócios da Gluotech. Nossa equipe entrará em contato em
               até 5 dias úteis.
             </p>
 
@@ -214,7 +214,7 @@ export default function FormSection() {
                   Registro Enviado!
                 </h3>
                 <p className="text-[#1A1A1A]/60 text-[16px] font-sans leading-relaxed mb-6">
-                  Obrigado pelo interesse no Programa de Parceria GluoTech.
+                  Obrigado pelo interesse no Programa de Parceria Gluotech.
                   Nossa equipe analisará seu perfil e entrará em contato em até
                   5 dias úteis.
                 </p>

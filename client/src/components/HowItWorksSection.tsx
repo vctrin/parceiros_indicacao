@@ -20,7 +20,7 @@ const steps = [
   {
     icon: Search,
     number: "02",
-    title: "Análise pela GluoTech",
+    title: "Análise pela Gluotech",
     description:
       "Nossa equipe avalia o fit estratégico em até 5 dias úteis e entra em contato para os próximos passos.",
   },

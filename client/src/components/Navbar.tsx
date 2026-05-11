@@ -1,6 +1,6 @@
 /*
  * Design: "Warm Authority" — Editorial Corporativo
- * Navbar: Clean, sticky, with GluoTech branding
+ * Navbar: Clean, sticky, with Gluotech branding
  * Colors: White bg with subtle shadow, orange accent on CTA
  */
 import { useState, useEffect } from "react";

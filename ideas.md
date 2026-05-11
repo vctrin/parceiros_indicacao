@@ -1,7 +1,7 @@
-# Brainstorm de Design - Página de Parceria GluoTech
+# Brainstorm de Design - Página de Parceria Gluotech
 
 ## Contexto
-Página de apresentação do Programa de Parceria Indicadores de Negócios da GluoTech, com formulário de captura. Público: empresas B2B, consultores, influenciadores do segmento de ERP/CRM/Omnichannel. Cores da marca: preto e laranja (#E8491D). Produto: Gluo CRM.
+Página de apresentação do Programa de Parceria Indicadores de Negócios da Gluotech, com formulário de captura. Público: empresas B2B, consultores, influenciadores do segmento de ERP/CRM/Omnichannel. Cores da marca: preto e laranja (#E8491D). Produto: Gluo CRM.
 
 ---
 
@@ -18,7 +18,7 @@ Página de apresentação do Programa de Parceria Indicadores de Negócios da Gl
 3. Contraste dramático entre preto, branco e laranja como acento cirúrgico
 4. Dados e números como elementos visuais de destaque
 
-**Color Philosophy:** Base predominantemente branca com blocos de preto profundo (#0A0A0A) para seções de destaque. O laranja GluoTech (#E8491D) aparece exclusivamente em elementos de ação e dados-chave, criando urgência sem poluição visual. Cinza quente (#F5F3F0) para fundos de seções alternadas.
+**Color Philosophy:** Base predominantemente branca com blocos de preto profundo (#0A0A0A) para seções de destaque. O laranja Gluotech (#E8491D) aparece exclusivamente em elementos de ação e dados-chave, criando urgência sem poluição visual. Cinza quente (#F5F3F0) para fundos de seções alternadas.
 
 **Layout Paradigm:** Grid assimétrico de 12 colunas com breakpoints dramáticos. Hero com split-screen diagonal — texto à esquerda ocupando 7 colunas, visual à direita com 5 colunas. Seções de benefícios em layout de cards escalonados (staggered masonry). Formulário posicionado em sidebar fixa no desktop.
 
@@ -53,7 +53,7 @@ Página de apresentação do Programa de Parceria Indicadores de Negócios da Gl
 3. Tipografia editorial com personalidade e peso
 4. Seções com identidade visual própria mas coesas entre si
 
-**Color Philosophy:** Fundo off-white quente (#FAFAF7) como base "papel". Preto (#1A1A1A) para texto principal. Laranja GluoTech (#E8491D) como cor de energia e ação — usado em CTAs, badges e highlights. Introdução de um tom complementar: azul-petróleo escuro (#1B3A4B) para seções de credibilidade e profundidade. Gradiente sutil laranja→âmbar para elementos premium.
+**Color Philosophy:** Fundo off-white quente (#FAFAF7) como base "papel". Preto (#1A1A1A) para texto principal. Laranja Gluotech (#E8491D) como cor de energia e ação — usado em CTAs, badges e highlights. Introdução de um tom complementar: azul-petróleo escuro (#1B3A4B) para seções de credibilidade e profundidade. Gradiente sutil laranja→âmbar para elementos premium.
 
 **Layout Paradigm:** Layout editorial com seções full-bleed alternando com conteúdo contido. Hero com imagem grande (70vh) e texto sobreposto com backdrop blur. Seção de benefícios em layout de "revista" — texto em coluna à esquerda, visual grande à direita, alternando. Simulação financeira como infográfico visual. Formulário em seção dedicada com fundo escuro contrastante.
 
@@ -89,7 +89,7 @@ Página de apresentação do Programa de Parceria Indicadores de Negócios da Gl
 3. Movimento e energia visual que transmitem crescimento
 4. Dark mode como base para sofisticação tech
 
-**Color Philosophy:** Fundo escuro (#0C0C0C a #1A1A1A) com gradientes mesh sutis em tons de laranja quente e âmbar. Laranja GluoTech (#E8491D) como cor primária vibrante contra o fundo escuro — máximo impacto. Acentos em âmbar (#F59E0B) e coral (#FF6B4A) para gradientes. Texto em branco (#FAFAFA) e cinza claro (#A1A1AA).
+**Color Philosophy:** Fundo escuro (#0C0C0C a #1A1A1A) com gradientes mesh sutis em tons de laranja quente e âmbar. Laranja Gluotech (#E8491D) como cor primária vibrante contra o fundo escuro — máximo impacto. Acentos em âmbar (#F59E0B) e coral (#FF6B4A) para gradientes. Texto em branco (#FAFAFA) e cinza claro (#A1A1AA).
 
 **Layout Paradigm:** Full-width com conteúdo centralizado em max-width 1200px. Hero com gradiente mesh animado como fundo. Seções com cards em glass-morphism (backdrop-blur, borda translúcida). Grid de 3 colunas para benefícios com ícones em gradiente. Formulário centralizado com fundo glass sobre gradiente.
 

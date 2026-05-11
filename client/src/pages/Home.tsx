@@ -1,6 +1,6 @@
 /*
  * Design: "Warm Authority" — Editorial Corporativo com Alma
- * Home Page: Full landing page for GluoTech Partnership Program
+ * Home Page: Full landing page for Gluotech Partnership Program
  * Sections: Hero → Program → Benefits → How It Works → Simulation → Launch Offer → FAQ → Form → Footer
  */
 import Navbar from "@/components/Navbar";
