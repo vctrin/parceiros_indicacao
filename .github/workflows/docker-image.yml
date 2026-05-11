@@ -30,6 +30,10 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Generate image tag
+        id: image-tag
+        run: echo "tag=$(node scripts/docker-image-tag.mjs)" >> "$GITHUB_OUTPUT"
+
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
@@ -37,4 +41,5 @@ jobs:
           push: true
           tags: |
             ${{ env.IMAGE_NAME }}:latest
+            ${{ env.IMAGE_NAME }}:${{ steps.image-tag.outputs.tag }}
             ${{ env.IMAGE_NAME }}:${{ github.sha }}

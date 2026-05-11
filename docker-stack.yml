@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   parceiros-indicacao:
-    image: ghcr.io/vctrin/parceiros-indicacao:latest
+    image: ghcr.io/vctrin/parceiros-indicacao:${IMAGE_TAG:-latest}
     environment:
       NODE_ENV: production
       PORT: 3000
@@ -25,7 +25,7 @@ services:
         - traefik.http.routers.parceiros-indicacao.rule=Host(`parcerias.gluotech.com`)
         - traefik.http.routers.parceiros-indicacao.entrypoints=websecure
         - traefik.http.routers.parceiros-indicacao.tls=true
-        - traefik.http.routers.parceiros-indicacao.tls.certresolver=letsencrypt
+        - traefik.http.routers.parceiros-indicacao.tls.certresolver=letsencryptresolver
         - traefik.http.services.parceiros-indicacao.loadbalancer.server.port=3000
 
 networks:
