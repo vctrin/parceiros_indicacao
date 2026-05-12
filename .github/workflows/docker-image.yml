@@ -8,6 +8,7 @@ on:
 
 env:
   IMAGE_NAME: ghcr.io/vctrin/parceiros-indicacao
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   build-and-push:
@@ -67,9 +68,24 @@ jobs:
     steps:
       - name: Validate deployment secrets
         run: |
-          test -n "$SERVER_HOST"
-          test -n "${{ secrets.SERVER_SSH_KEY }}"
-          test -n "${{ secrets.GHCR_TOKEN }}"
+          missing=0
+
+          if [ -z "$SERVER_HOST" ]; then
+            echo "::error::Missing required secret SERVER_HOST"
+            missing=1
+          fi
+
+          if [ -z "${{ secrets.SERVER_SSH_KEY }}" ]; then
+            echo "::error::Missing required secret SERVER_SSH_KEY"
+            missing=1
+          fi
+
+          if [ -z "${{ secrets.GHCR_TOKEN }}" ]; then
+            echo "::error::Missing required secret GHCR_TOKEN"
+            missing=1
+          fi
+
+          exit "$missing"
 
       - name: Configure SSH
         run: |
