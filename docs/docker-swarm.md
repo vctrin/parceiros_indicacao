@@ -81,6 +81,28 @@ IMAGE_TAG=2026-05-10_v1.0 docker stack deploy \
 
 Se `IMAGE_TAG` nao for informado, o stack usa `latest`.
 
+## Deploy automatico com GitHub Actions
+
+O workflow `.github/workflows/docker-image.yml` publica a imagem no GHCR e atualiza o servico Swarm automaticamente a cada push na branch `main`.
+
+Configure estes secrets em `Settings > Secrets and variables > Actions` no GitHub:
+
+- `SERVER_HOST`: IP ou hostname do servidor Swarm.
+- `SERVER_USER`: usuario SSH do servidor. Se nao informado no workflow, o padrao e `admin`.
+- `SERVER_PORT`: porta SSH. Se nao informado no workflow, o padrao e `22`.
+- `SERVER_SSH_KEY`: chave privada SSH com acesso ao servidor.
+- `SERVER_SERVICE_NAME`: nome do servico Swarm. Se nao informado no workflow, o padrao e `parceiros-indicacao_parceiros-indicacao`.
+- `GHCR_USERNAME`: usuario do GitHub/GHCR. Se nao informado no workflow, o padrao e `vctrin`.
+- `GHCR_TOKEN`: token do GitHub com permissao `read:packages` para o servidor conseguir baixar a imagem privada do GHCR.
+
+O deploy usa a imagem imutavel do commit:
+
+```bash
+ghcr.io/vctrin/parceiros-indicacao:<sha-do-commit>
+```
+
+Isso evita ambiguidade de cache da tag `latest` e permite rastrear exatamente qual commit esta rodando.
+
 ## Pre-requisitos no servidor
 
 - Docker Swarm inicializado.
