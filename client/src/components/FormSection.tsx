@@ -67,40 +67,48 @@ export default function FormSection() {
   const [submitted, setSubmitted] = useState(false);
   const [lastSubmitTime, setLastSubmitTime] = useState(0);
   const [turnstileToken, setTurnstileToken] = useState("");
+  const [turnstileReady, setTurnstileReady] = useState(false);
   const loadedAtRef = useRef(Date.now());
   const turnstileRef = useRef<HTMLDivElement>(null);
   const widgetIdRef = useRef("");
 
+  // Load script once
   useEffect(() => {
+    const w = window as Window & { turnstile?: TurnstileAPI };
+    if (w.turnstile) { setTurnstileReady(true); return; }
     const script = document.createElement("script");
     script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
     script.async = true;
-    script.onload = () => {
-      const w = window as Window & { turnstile?: TurnstileAPI };
-      if (!w.turnstile || !turnstileRef.current) return;
-      widgetIdRef.current = w.turnstile.render(turnstileRef.current, {
-        sitekey: TURNSTILE_SITE_KEY,
-        callback: (token: string) => setTurnstileToken(token),
-        "expired-callback": () => setTurnstileToken(""),
-        "error-callback": () => setTurnstileToken(""),
-        theme: "light",
-        language: "pt-BR",
-      });
-    };
+    script.onload = () => setTurnstileReady(true);
     document.head.appendChild(script);
     return () => { script.remove(); };
   }, []);
 
+  // Render widget when script ready and form visible; remove on cleanup
   useEffect(() => {
-    if (!submitted) {
-      const w = window as Window & { turnstile?: TurnstileAPI };
-      if (w.turnstile && widgetIdRef.current) {
-        w.turnstile.reset(widgetIdRef.current);
+    if (!turnstileReady || submitted) return;
+    const w = window as Window & { turnstile?: TurnstileAPI };
+    if (!w.turnstile || !turnstileRef.current) return;
+
+    widgetIdRef.current = w.turnstile.render(turnstileRef.current, {
+      sitekey: TURNSTILE_SITE_KEY,
+      callback: (token: string) => setTurnstileToken(token),
+      "expired-callback": () => setTurnstileToken(""),
+      "error-callback": () => setTurnstileToken(""),
+      theme: "light",
+      language: "pt-BR",
+    });
+    setTurnstileToken("");
+    loadedAtRef.current = Date.now();
+
+    return () => {
+      const cw = window as Window & { turnstile?: TurnstileAPI };
+      if (cw.turnstile && widgetIdRef.current) {
+        try { cw.turnstile.remove(widgetIdRef.current); } catch {}
+        widgetIdRef.current = "";
       }
-      setTurnstileToken("");
-      loadedAtRef.current = Date.now();
-    }
-  }, [submitted]);
+    };
+  }, [turnstileReady, submitted]);
 
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
