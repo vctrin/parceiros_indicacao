@@ -7,7 +7,7 @@ import { motion, useInView } from "motion/react";
 import { useRef, useState, useEffect } from "react";
 import { TrendingUp, Coins, Award, Calculator } from "lucide-react";
 
-const GROWTH_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663028752377/fro2PgixhPifRKhNGEgZFN/business-growth-3nxjwPsotF9gsfYzDBPKFU.webp";
+const GROWTH_IMG = "/business-growth.webp";
 
 function AnimatedNumber({ target, prefix = "", suffix = "", duration = 1.5 }: {
   target: number;

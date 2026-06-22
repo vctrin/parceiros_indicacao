@@ -7,7 +7,7 @@ import { motion, useInView } from "motion/react";
 import { useRef } from "react";
 import { FileText, Search, Users, BadgeCheck } from "lucide-react";
 
-const TEAM_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663028752377/fro2PgixhPifRKhNGEgZFN/team-collaboration-jVK3nnJtBypceDjvNT5vwE.webp";
+const TEAM_IMG = "/team-collaboration.webp";
 
 const steps = [
   {

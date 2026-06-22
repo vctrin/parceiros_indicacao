@@ -8,7 +8,7 @@ import { useInView } from "motion/react";
 import { useRef } from "react";
 import { CheckCircle2 } from "lucide-react";
 
-const CRM_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663028752377/fro2PgixhPifRKhNGEgZFN/crm-dashboard-SeuBLfMAMPdxnEUnjv8e8T.webp";
+const CRM_IMG = "/crm-dashboard.webp";
 
 const features = [
   "Gestão completa de pipeline de vendas",

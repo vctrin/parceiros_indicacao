@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { motion } from "motion/react";
 
-const HERO_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663028752377/fro2PgixhPifRKhNGEgZFN/hero-partnership-PaiBZER3PsUQXgUWYkUVku.webp";
+const HERO_IMG = "/hero-partnership.webp";
 
 export default function HeroSection() {
   const scrollTo = (id: string) => {
