@@ -7,11 +7,16 @@ import { z } from "zod";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+const ALLOWED_WEBHOOK_DOMAINS = [".gluotech.com", ".gluocrm.com.br"];
+
 function isValidWebhookUrl(url: string | undefined): url is string {
   if (!url) return false;
   try {
     const parsed = new URL(url);
-    return parsed.protocol === "https:" && parsed.hostname.endsWith(".gluotech.com");
+    return (
+      parsed.protocol === "https:" &&
+      ALLOWED_WEBHOOK_DOMAINS.some((domain) => parsed.hostname.endsWith(domain))
+    );
   } catch {
     return false;
   }
