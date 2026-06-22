@@ -7,6 +7,16 @@ import { z } from "zod";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+function isValidWebhookUrl(url: string | undefined): url is string {
+  if (!url) return false;
+  try {
+    const parsed = new URL(url);
+    return parsed.protocol === "https:" && parsed.hostname.endsWith(".gluotech.com");
+  } catch {
+    return false;
+  }
+}
+
 const partnerInterestSchema = z.object({
   nome: z.string().trim().min(1).max(50),
   sobrenome: z.string().trim().min(1).max(50),
@@ -57,7 +67,11 @@ function pruneRateLimitStore() {
 async function startServer() {
   const app = express();
   const server = createServer(app);
-  const partnerWebhookUrl = process.env.PARTNER_WEBHOOK_URL || process.env.WEBHOOK_URL;
+  const rawWebhookUrl = process.env.PARTNER_WEBHOOK_URL || process.env.WEBHOOK_URL;
+  const partnerWebhookUrl = isValidWebhookUrl(rawWebhookUrl) ? rawWebhookUrl : null;
+  if (rawWebhookUrl && !partnerWebhookUrl) {
+    console.error("PARTNER_WEBHOOK_URL is set but invalid (must be HTTPS on *.gluotech.com)");
+  }
 
   app.disable("x-powered-by");
   app.set("trust proxy", 1);
@@ -67,6 +81,9 @@ async function startServer() {
     res.setHeader("X-Frame-Options", "DENY");
     res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
     res.setHeader("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
+    res.setHeader("Strict-Transport-Security", "max-age=63072000; includeSubDomains; preload");
+    res.setHeader("Cross-Origin-Opener-Policy", "same-origin");
+    res.setHeader("Cross-Origin-Resource-Policy", "same-origin");
     res.setHeader(
       "Content-Security-Policy",
       [
@@ -74,11 +91,11 @@ async function startServer() {
         "base-uri 'self'",
         "object-src 'none'",
         "frame-ancestors 'none'",
-        "script-src 'self' https:",
-        "style-src 'self' 'unsafe-inline' https:",
-        "font-src 'self' https: data:",
-        "img-src 'self' https: data:",
-        "connect-src 'self' https:",
+        "script-src 'self'",
+        "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+        "font-src 'self' https://fonts.gstatic.com data:",
+        "img-src 'self' data:",
+        "connect-src 'self'",
       ].join("; ")
     );
     next();

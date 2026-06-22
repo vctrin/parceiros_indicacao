@@ -11,6 +11,13 @@ services:
       - network_public
     deploy:
       replicas: 1
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 256M
+        reservations:
+          cpus: "0.10"
+          memory: 128M
       update_config:
         order: start-first
         parallelism: 1

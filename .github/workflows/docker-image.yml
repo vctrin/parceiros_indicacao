@@ -16,6 +16,7 @@ jobs:
     permissions:
       contents: read
       packages: write
+      security-events: write
     outputs:
       image-ref: ${{ steps.image-meta.outputs.image-ref }}
       image-tag: ${{ steps.image-tag.outputs.tag }}
@@ -47,6 +48,22 @@ jobs:
             ${{ env.IMAGE_NAME }}:latest
             ${{ env.IMAGE_NAME }}:${{ steps.image-tag.outputs.tag }}
             ${{ env.IMAGE_NAME }}:${{ github.sha }}
+
+      - name: Scan image for vulnerabilities (Trivy)
+        uses: aquasecurity/trivy-action@0.30.0
+        with:
+          image-ref: ${{ env.IMAGE_NAME }}:${{ github.sha }}
+          format: sarif
+          output: trivy-results.sarif
+          severity: CRITICAL,HIGH
+          exit-code: "1"
+          ignore-unfixed: true
+
+      - name: Upload Trivy scan results to GitHub Security
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: trivy-results.sarif
 
       - name: Export image metadata
         id: image-meta
@@ -85,6 +102,11 @@ jobs:
             missing=1
           fi
 
+          if [ -z "${{ secrets.SERVER_SSH_KNOWN_HOST }}" ]; then
+            echo "::error::Missing required secret SERVER_SSH_KNOWN_HOST"
+            missing=1
+          fi
+
           exit "$missing"
 
       - name: Configure SSH
@@ -93,7 +115,7 @@ jobs:
           chmod 700 ~/.ssh
           printf '%s\n' "${{ secrets.SERVER_SSH_KEY }}" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
-          ssh-keyscan -p "$SERVER_PORT" "$SERVER_HOST" >> ~/.ssh/known_hosts
+          printf '%s\n' "${{ secrets.SERVER_SSH_KNOWN_HOST }}" >> ~/.ssh/known_hosts
 
       - name: Update Swarm service
         run: |
