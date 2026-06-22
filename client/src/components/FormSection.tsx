@@ -5,7 +5,15 @@
  * Colors: Petrol dark bg, white form card, orange CTA
  */
 import { motion, useInView } from "motion/react";
-import { useRef, useState, useCallback } from "react";
+import { useRef, useState, useCallback, useEffect } from "react";
+
+const TURNSTILE_SITE_KEY = "0x4AAAAAADo4-W7oSxuJeei3";
+
+interface TurnstileAPI {
+  render: (container: HTMLElement, options: Record<string, unknown>) => string;
+  reset: (widgetId: string) => void;
+  remove: (widgetId: string) => void;
+}
 import { Button } from "@/components/ui/button";
 import { Send, CheckCircle, AlertCircle, Loader2, Shield } from "lucide-react";
 import { toast } from "sonner";
@@ -58,6 +66,41 @@ export default function FormSection() {
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [lastSubmitTime, setLastSubmitTime] = useState(0);
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const loadedAtRef = useRef(Date.now());
+  const turnstileRef = useRef<HTMLDivElement>(null);
+  const widgetIdRef = useRef("");
+
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+    script.async = true;
+    script.onload = () => {
+      const w = window as Window & { turnstile?: TurnstileAPI };
+      if (!w.turnstile || !turnstileRef.current) return;
+      widgetIdRef.current = w.turnstile.render(turnstileRef.current, {
+        sitekey: TURNSTILE_SITE_KEY,
+        callback: (token: string) => setTurnstileToken(token),
+        "expired-callback": () => setTurnstileToken(""),
+        "error-callback": () => setTurnstileToken(""),
+        theme: "light",
+        language: "pt-BR",
+      });
+    };
+    document.head.appendChild(script);
+    return () => { script.remove(); };
+  }, []);
+
+  useEffect(() => {
+    if (!submitted) {
+      const w = window as Window & { turnstile?: TurnstileAPI };
+      if (w.turnstile && widgetIdRef.current) {
+        w.turnstile.reset(widgetIdRef.current);
+      }
+      setTurnstileToken("");
+      loadedAtRef.current = Date.now();
+    }
+  }, [submitted]);
 
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -117,6 +160,8 @@ export default function FormSection() {
         empresa: sanitize(form.empresa),
         observacoes: sanitize(form.observacoes),
         website: honeypot,
+        turnstileToken,
+        loadedAt: loadedAtRef.current,
       };
 
       const response = await fetch("/api/partner-interest", {
@@ -365,6 +410,8 @@ export default function FormSection() {
                   </div>
                 </div>
 
+                <div ref={turnstileRef} className="mb-2" />
+
                 <div className="mb-6">
                   <label htmlFor="observacoes" className="block text-sm font-semibold text-[#1A1A1A]/70 mb-1.5 font-sans">
                     Observações
@@ -383,7 +430,7 @@ export default function FormSection() {
 
                 <Button
                   type="submit"
-                  disabled={submitting}
+                  disabled={submitting || !turnstileToken}
                   className="w-full bg-[#E8491D] hover:bg-[#d13d14] text-white font-semibold text-[16px] py-6 rounded-lg shadow-[0_4px_20px_rgba(232,73,29,0.3)] hover:shadow-[0_6px_28px_rgba(232,73,29,0.45)] transition-all disabled:opacity-60"
                 >
                   {submitting ? (

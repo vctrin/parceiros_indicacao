@@ -8,6 +8,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const ALLOWED_WEBHOOK_DOMAINS = [".gluotech.com", ".gluocrm.com.br"];
+const TURNSTILE_VERIFY_URL = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
+const MIN_FILL_MS = 5_000;
 
 function isValidWebhookUrl(url: string | undefined): url is string {
   if (!url) return false;
@@ -17,6 +19,26 @@ function isValidWebhookUrl(url: string | undefined): url is string {
       parsed.protocol === "https:" &&
       ALLOWED_WEBHOOK_DOMAINS.some((domain) => parsed.hostname.endsWith(domain))
     );
+  } catch {
+    return false;
+  }
+}
+
+async function verifyTurnstile(token: string, ip: string): Promise<boolean> {
+  const secret = process.env.TURNSTILE_SECRET_KEY;
+  if (!secret) {
+    console.error("TURNSTILE_SECRET_KEY is not configured");
+    return false;
+  }
+  try {
+    const res = await fetch(TURNSTILE_VERIFY_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ secret, response: token, remoteip: ip }),
+      signal: AbortSignal.timeout(5_000),
+    });
+    const data = (await res.json()) as { success: boolean };
+    return data.success === true;
   } catch {
     return false;
   }
@@ -37,6 +59,8 @@ const partnerInterestSchema = z.object({
   empresa: z.string().trim().min(1).max(100),
   observacoes: z.string().trim().max(500).optional().default(""),
   website: z.string().trim().max(200).optional().default(""),
+  turnstileToken: z.string().min(1),
+  loadedAt: z.number().positive(),
 });
 
 const rateLimitWindowMs = 60_000;
@@ -96,11 +120,12 @@ async function startServer() {
         "base-uri 'self'",
         "object-src 'none'",
         "frame-ancestors 'none'",
-        "script-src 'self'",
+        "script-src 'self' https://challenges.cloudflare.com",
         "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
         "font-src 'self' https://fonts.gstatic.com data:",
         "img-src 'self' data:",
-        "connect-src 'self'",
+        "frame-src https://challenges.cloudflare.com",
+        "connect-src 'self' https://challenges.cloudflare.com",
       ].join("; ")
     );
     next();
@@ -137,6 +162,17 @@ async function startServer() {
       return;
     }
 
+    if (Date.now() - parsed.data.loadedAt < MIN_FILL_MS) {
+      res.status(400).json({ error: "invalid_payload" });
+      return;
+    }
+
+    const turnstileOk = await verifyTurnstile(parsed.data.turnstileToken, ip);
+    if (!turnstileOk) {
+      res.status(400).json({ error: "invalid_captcha" });
+      return;
+    }
+
     if (!partnerWebhookUrl) {
       console.error("PARTNER_WEBHOOK_URL is not configured");
       res.status(503).json({ error: "service_unavailable" });
@@ -152,6 +188,8 @@ async function startServer() {
         body: JSON.stringify({
           ...parsed.data,
           website: undefined,
+          turnstileToken: undefined,
+          loadedAt: undefined,
           timestamp: new Date().toISOString(),
           source: "landing-page-parceria",
           client: {
