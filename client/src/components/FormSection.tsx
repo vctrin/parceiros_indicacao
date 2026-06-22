@@ -418,8 +418,6 @@ export default function FormSection() {
                   </div>
                 </div>
 
-                <div ref={turnstileRef} className="mb-2" />
-
                 <div className="mb-6">
                   <label htmlFor="observacoes" className="block text-sm font-semibold text-[#1A1A1A]/70 mb-1.5 font-sans">
                     Observações
@@ -435,6 +433,8 @@ export default function FormSection() {
                     maxLength={500}
                   />
                 </div>
+
+                <div ref={turnstileRef} className="mb-4" />
 
                 <Button
                   type="submit"
